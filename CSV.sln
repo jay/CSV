@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "stresstest", "stresstest\stresstest.vcxproj", "{58992A69-9C63-48BE-8A98-9CC78EE13693}"
+	ProjectSection(ProjectDependencies) = postProject
+		{51833952-8BA0-4C53-BCF7-28FACD84F5ED} = {51833952-8BA0-4C53-BCF7-28FACD84F5ED}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSV", "CSV\CSV.vcxproj", "{51833952-8BA0-4C53-BCF7-28FACD84F5ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51833952-8BA0-4C53-BCF7-28FACD84F5ED}.Debug|Win32.ActiveCfg = Debug|Win32
+		{51833952-8BA0-4C53-BCF7-28FACD84F5ED}.Debug|Win32.Build.0 = Debug|Win32
+		{51833952-8BA0-4C53-BCF7-28FACD84F5ED}.Release|Win32.ActiveCfg = Release|Win32
+		{51833952-8BA0-4C53-BCF7-28FACD84F5ED}.Release|Win32.Build.0 = Release|Win32
+		{58992A69-9C63-48BE-8A98-9CC78EE13693}.Debug|Win32.ActiveCfg = Debug|Win32
+		{58992A69-9C63-48BE-8A98-9CC78EE13693}.Debug|Win32.Build.0 = Debug|Win32
+		{58992A69-9C63-48BE-8A98-9CC78EE13693}.Release|Win32.ActiveCfg = Release|Win32
+		{58992A69-9C63-48BE-8A98-9CC78EE13693}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

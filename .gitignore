@@ -1,1 +1,10 @@
+Debug/
+Release/
+ipch/
+old/
 private/
+*.old
+*.opensdf
+*.sdf
+*.suo
+*.user
