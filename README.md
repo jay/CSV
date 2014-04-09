@@ -31,7 +31,7 @@ I wrote and executed stress testing in Visual Studio 2010 Professional x86 and h
 
 In Debug mode the most recent test completed 200,000+ iterations without fail before I ended it. In Release mode the test completed tens of millions of iterations before I ended it. The Debug tests are more thorough than the Release tests due to the extra checks Visual Studio does in debug mode but they are much much slower, especially when breaks, on-hit or watches are enabled and I use all of those. My meta info for debugging CSV.sln may or may not be found in breakpoints.xml, depending on the commit.
 
-If an iteration of the stress test fails two cpu beeps (\a\a) are sent, the state of the random number generator is saved, the error output is saved and sent to stdout and then __debugbreak() is called. The stress test can be restarted using the failed iteration by passing the state of the random number generator at that time (error_DATE_TIME_state_iteration.txt) as an argument to stresstest.
+If an iteration of the stress test fails two cpu beeps (\a\a) are sent, the state of the random number generator is saved, the error output is saved and sent to stdout and then `__debugbreak()` is called. The stress test can be restarted using the failed iteration by passing the state of the random number generator at that time (error_DATE_TIME_state_iteration.txt) as an argument to stresstest.
 
 Likely FAQ
 ----------
@@ -42,7 +42,7 @@ Likely FAQ
 Libcsv handles files in binary mode and by default files are opened in binary mode by my classes. This should be fine for most purposes since libcsv autodetects CR,LF,CRLF as record terminators. However if you have records with multiline data that is not binary then you may prefer the text mode translation. When characters are translated though it can lead to consequences that may not be readily apparent and are usually unintended such as premature termination of a file (eg the EOF character is in a CSV field). I use binary mode for that reason. Also I have done extensive testing only in binary mode. I suggest using binary mode unless you have a really compelling reason otherwise.
 
 
-### Why did you use two separate classes, one for reading and one for writing?
+### Why two separate classes, one for reading and one for writing?
 
 I think it's the best design. Although both classes have some function names and behaviors that are the same the code is far between.
 
@@ -77,7 +77,7 @@ CSVwrite surrounds all fields in double quotes. For example if you have a record
 
 ### What's an empty record?
 
-A record that has nothing before its terminator. A record that consists of just a comma `,` is *not* considered an empty record by this parser, it is parsed as two empty fields.
+A record that has nothing before its terminator. A record that consists of just a field separator --eg a comma `,`-- is *not* considered an empty record by this parser, it is parsed as two empty fields.
 
 
 ### What are the advanced features of libcsv?
@@ -94,7 +94,7 @@ The source can be found on [GitHub](https://github.com/jay/CSV). Since you're re
 
 ### Send me any questions you have
 
-Jay Satiro <raysatiro$at$yahoo{}com> and put CSVread/CSVwrite in the subject.
+Jay Satiro `<raysatiro$at$yahoo{}com>` and put CSVread/CSVwrite in the subject.
 
 
 TODO
