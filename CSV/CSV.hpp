@@ -307,6 +307,7 @@ public:
     const bool &has_utf8_bom; // = _has_utf8_bom
 
     // The record number of the current record.
+    // The first CSV record is record number 1.
     const size_t &record_num; // = _record_num
 
 
