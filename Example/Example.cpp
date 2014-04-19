@@ -96,7 +96,7 @@ int main()// int argc, char *argv[] )
         cout << endl << "Record #" << csv_read.record_num << endl;
         for( unsigned i = 0; i < csv_read.fields.size(); ++i )
         {
-            cout << "field[ " << i << " ]: " << csv_read.fields[ i ] << "(" << csv_read.fields[ i ].length() << ")"<< endl;
+            cout << "fields[ " << i << " ]: " << csv_read.fields[ i ] << "(" << csv_read.fields[ i ].length() << ")"<< endl;
         }
     }
 
