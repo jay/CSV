@@ -42,6 +42,26 @@ Likely FAQ
 Libcsv handles files in binary mode and by default files are opened in binary mode by my classes. This should be fine for most purposes since libcsv autodetects CR,LF,CRLF as record terminators. However if you have records with multiline data that is not binary then you may prefer the text mode translation. When characters are translated though it can lead to consequences that may not be readily apparent and are usually unintended such as premature termination of a file (eg the EOF character is in a CSV field). I use binary mode for that reason. Also I have done extensive testing only in binary mode. I suggest using binary mode unless you have a really compelling reason otherwise.
 
 
+### How can I determine if all records have been successfully read?
+
+A record is successfully read when it has been read from the cache into the `CSVread::fields` vector. When you read a record successfully that means that every record before it has been parsed and read successfully (even if you've skipped some, they've still been parsed). Therefore when the end record is read all records have been successfully read.
+
+However until EOF is reached in the stream there is no way to know what is the end record. **EOF may or may not be reached when parsing what is the end record, depending on that record's size and the buffer size.** The only certain way to determine what is the end record in a stream is to attempt to read past it, which causes error EOF. Therefore you can only determine whether or not all records have been successfully read after `bool CSVread::ReadRecord()` returns `false` and `CSVread::eof` is `true`.
+
+For example, to determine whether or not the end record is the record in `CSVread::fields` you should test **after ReadRecord() fails** for EOF and if the current record number in `CSVread::fields` is equal to the end record number:
+```cpp
+CSVread csv( "abc.csv" );
+
+// csv.error is always false when ReadRecord() succeeds
+while( csv.ReadRecord() )
+{ process csv.fields }
+
+// csv.error is always true when ReadRecord() fails
+if( !csv.eof || csv.record_num != csv.end_record_num )
+{ throw csv.error_msg, etc }
+```
+
+
 ### Why two separate classes, one for reading and one for writing?
 
 I think it's the best design. Although both classes have some function names and behaviors that are the same the code is far between.

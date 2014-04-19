@@ -325,14 +325,14 @@ public:
     no guarantee on ReadRecord() success that the record read is known to be the end record even if
     it is actually the end record.
 
+    // process all records including the end record
     while( csv_read.ReadRecord() )
     {
-        // process all records including the end record
     }
 
+    // determine if the end record was the last successfully read
     if( obj.eof && ( obj.record_num == obj.end_record_num ) )
     {
-        // determine if the end record was the last successfully read
     }
 
     The example above assumes you are reading consecutively. Assuming the if statement is true,
