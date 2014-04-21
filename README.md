@@ -69,7 +69,7 @@ I think it's the best design. Although both classes have some function names and
 
 ### No exceptions?
 
-The CSVread/CSVwrite classes do not use exceptions. I want to be able to use this code in exception-free environments. It's possible I could add exceptions as an option at some point but it won't be the default.
+The CSVread/CSVwrite classes do not throw exceptions of their own or handle any exceptions. However both classes use the C++ Standard Template Library (STL) which may throw exceptions, therefore exceptions may be thrown. CSVread/CSVwrite have been stress tested; so if the STL throws it is highly likely due to a fatal error such as your program is out of memory. **Also, if you are operating on a stream that throws exceptions (untested) catching them is your responsibility.** It's possible I could add CSVread/CSVwrite exceptions as an option at some point but it won't be the default.
 
 
 ### Can CSVread detect headers or comments?
