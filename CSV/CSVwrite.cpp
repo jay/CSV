@@ -93,7 +93,11 @@ bool CSVwrite::ResizeBuffer( const size_t bytes )
     if( !temp )
     {
         _error = true;
-        _error_msg = "buffer allocation failed. size in bytes: " + bytes;
+
+        ostringstream ss;
+        ss << "buffer allocation failed. size in bytes: " << bytes;
+        _error_msg = ss.str();
+
         return false;
     }
 

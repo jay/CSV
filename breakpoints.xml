@@ -12,9 +12,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>396</startLine>
+        <startLine>400</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>396</EndLine>
+        <EndLine>400</EndLine>
         <EndColumn>17</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -63,9 +63,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>509</startLine>
+        <startLine>513</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>509</EndLine>
+        <EndLine>513</EndLine>
         <EndColumn>1</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -113,9 +113,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>631</startLine>
+        <startLine>639</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>631</EndLine>
+        <EndLine>639</EndLine>
         <EndColumn>21</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -129,7 +129,7 @@
         </Checksum>
       </TextPosition>
       <NamedLocationText>ReadRecord( const size_t requested_record_num /* = 0 */ )</NamedLocationText>
-      <NamedLocationLine>122</NamedLocationLine>
+      <NamedLocationLine>126</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>
       <HitCountTarget>1</HitCountTarget>
@@ -164,9 +164,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVwrite.cpp</FileName>
-        <startLine>262</startLine>
+        <startLine>266</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>262</EndLine>
+        <EndLine>266</EndLine>
         <EndColumn>1</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -214,9 +214,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVwrite.cpp</FileName>
-        <startLine>287</startLine>
+        <startLine>291</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>287</EndLine>
+        <EndLine>291</EndLine>
         <EndColumn>1</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -264,9 +264,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVwrite.cpp</FileName>
-        <startLine>406</startLine>
+        <startLine>410</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>406</EndLine>
+        <EndLine>410</EndLine>
         <EndColumn>1</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -314,9 +314,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVwrite.cpp</FileName>
-        <startLine>419</startLine>
+        <startLine>423</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>419</EndLine>
+        <EndLine>423</EndLine>
         <EndColumn>32</EndColumn>
         <MarkerId>68</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -364,9 +364,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVwrite.cpp</FileName>
-        <startLine>427</startLine>
+        <startLine>431</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>427</EndLine>
+        <EndLine>431</EndLine>
         <EndColumn>20</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>

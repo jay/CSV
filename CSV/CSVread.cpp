@@ -211,7 +211,11 @@ bool CSVread::ResizeBuffer( const size_t bytes )
     if( !temp )
     {
         _error = true;
-        _error_msg = "buffer allocation failed. size in bytes: " + bytes;
+
+        ostringstream ss;
+        ss << "buffer allocation failed. size in bytes: " << bytes;
+        _error_msg = ss.str();
+
         return false;
     }
 
@@ -608,7 +612,11 @@ bool CSVread::ReadRecord( const size_t requested_record_num /* = 0 */ )
     if( _cache.size() != 1 )
     {
         _error = true;
-        _error_msg = "The cache list has an unexpected size: " + _cache.size();
+
+        ostringstream ss;
+        ss << "The cache list has an unexpected size: " << _cache.size();
+        _error_msg = ss.str();
+
         return false;
     }
 
