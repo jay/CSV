@@ -44,6 +44,7 @@ using namespace std;
 // no CSVread::Close() on fail
 bool read_records(
     const char *filename,
+    const bool utf8bom,
     const int max_ramdisk_size,
     const bool process_empty,
     const size_t expected_records_count,
@@ -56,6 +57,23 @@ bool read_records(
     ifstream in_file;
 
     bool use_association = getrand<bool>();
+
+    jay::util::CSVread::Flags flags = jay::util::CSVread::none;
+
+    if( process_empty )
+    {
+        flags |= jay::util::CSVread::process_empty_records;
+    }
+
+    // Maybe skip the BOM check, only if there's no BOM
+    bool skip_utf8_bom = !utf8bom && getrand<bool>();
+    if( skip_utf8_bom )
+    {
+        flags |= jay::util::CSVread::skip_utf8_bom_check;
+    }
+
+    bool use_flags = ( flags != jay::util::CSVread::none ) || getrand<bool>();
+
     if( use_association )
     {
         in_file.open( filename, ios::binary );
@@ -63,9 +81,9 @@ bool read_records(
         DEBUG_IF( ( !in_file.is_open() ),
             "Problem opening file " << filename << " : " << jay::util::ios_strerror( in_file.rdstate() ) );
 
-        if( process_empty )
+        if( use_flags )
         {
-            b = csv_read.Associate( &in_file, jay::util::CSVread::process_empty_records );
+            b = csv_read.Associate( &in_file, flags );
         }
         else
         {
@@ -80,9 +98,9 @@ bool read_records(
     }
     else
     {
-        if( process_empty )
+        if( use_flags )
         {
-            b = csv_read.Open( filename, jay::util::CSVread::process_empty_records );
+            b = csv_read.Open( filename, flags );
         }
         else
         {

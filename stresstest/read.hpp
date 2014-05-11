@@ -31,6 +31,7 @@ along with jay::util. If not, see <http://www.gnu.org/licenses/>.
 
 bool read_records(
     const char *filename,
+    const bool utf8bom,
     const int max_ramdisk_size,
     const bool process_empty,
     const size_t expected_records_count,

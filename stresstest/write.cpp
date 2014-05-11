@@ -57,6 +57,22 @@ bool write_records(
     ofstream out_file;
 
     bool use_association = getrand<bool>();
+
+    jay::util::CSVwrite::Flags flags = jay::util::CSVwrite::none;
+
+    if( process_empty )
+    {
+        flags |= jay::util::CSVwrite::process_empty_records;
+    }
+
+    // Truncate flag may only be passed to Open()
+    if( truncate && !use_association )
+    {
+        flags |= jay::util::CSVwrite::truncate;
+    }
+
+    bool use_flags = ( flags != jay::util::CSVwrite::none ) || getrand<bool>();
+
     if( use_association )
     {
         if( truncate )
@@ -71,9 +87,9 @@ bool write_records(
         DEBUG_IF( ( !out_file.is_open() ),
             "Problem opening file " << filename << " : " << jay::util::ios_strerror( out_file.rdstate() ) );
 
-        if( process_empty )
+        if( use_flags )
         {
-            b = csv_write.Associate( &out_file, jay::util::CSVwrite::process_empty_records );
+            b = csv_write.Associate( &out_file, flags );
         }
         else
         {
@@ -88,19 +104,7 @@ bool write_records(
     }
     else
     {
-        jay::util::CSVwrite::Flags flags = jay::util::CSVwrite::none;
-
-        if( truncate )
-        {
-            flags |= jay::util::CSVwrite::truncate;
-        }
-
-        if( process_empty )
-        {
-            flags |= jay::util::CSVwrite::process_empty_records;
-        }
-
-        if( flags != jay::util::CSVwrite::none )
+        if( use_flags )
         {
             b = csv_write.Open( filename, flags );
         }

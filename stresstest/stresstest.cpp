@@ -217,6 +217,7 @@ bool generate_and_compare(
 
     DEBUG_IF( !read_records(
             filename,
+            utf8bom,
             max_ramdisk_size,
             list2_process_empty,
             list2_expected_count,

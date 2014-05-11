@@ -589,9 +589,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\stresstest\stresstest.cpp</FileName>
-        <startLine>332</startLine>
+        <startLine>333</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>332</EndLine>
+        <EndLine>333</EndLine>
         <EndColumn>78</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -640,9 +640,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\stresstest\write.cpp</FileName>
-        <startLine>143</startLine>
+        <startLine>147</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>143</EndLine>
+        <EndLine>147</EndLine>
         <EndColumn>29</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -664,7 +664,7 @@
     const list&lt;vector&lt;string&gt;&gt; &amp;records,
     jay::util::CSVwrite &amp;csv_write // INOUT
 )</NamedLocationText>
-      <NamedLocationLine>90</NamedLocationLine>
+      <NamedLocationLine>94</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>
       <HitCountTarget>1</HitCountTarget>
