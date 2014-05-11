@@ -280,13 +280,14 @@ public:
     Libcsv has its own buffer that is unaffected by this setting.
 
     [ret][failure] (false) : The buffer could not be resized and has retained its current size.
+        'error' and 'error_msg' are set.
     [ret][success] (true)
     */
-    bool ResizeBuffer( const size_t bytes );
+    bool ResizeBuffer( const std::streamsize bytes );
 
 
     // The size of _buffer. Default 4096. Call ResizeBuffer() to change the size.
-    const size_t &buffer_size; // = _buffer_size
+    const std::streamsize &buffer_size; // = _buffer_size
 
     /* Stream EOF.
 
@@ -412,7 +413,7 @@ private:
     char *_buffer;
 
     // For a description of any of these refer to their public const references.
-    size_t _buffer_size;
+    std::streamsize _buffer_size;
     bool _eof;
     bool _error;
     std::string _error_msg;
@@ -617,13 +618,14 @@ public:
     are greater than 4096 bytes.
 
     [ret][failure] (false) : The buffer could not be resized and has retained its current size.
+        'error' and 'error_msg' are set.
     [ret][success] (true)
     */
-    bool ResizeBuffer( const size_t bytes );
+    bool ResizeBuffer( const std::streamsize bytes );
 
 
     // The size of _buffer. Default 4096. Call ResizeBuffer() to change the size.
-    const size_t &buffer_size; // = _buffer_size
+    const std::streamsize &buffer_size; // = _buffer_size
 
     // Error. Functions will not succeed when this is true. Call Close() or Dissociate().
     const bool &error; // = _error
@@ -661,7 +663,7 @@ private:
     bool _is_first_field;
 
     // For a description of any of these refer to their public const references.
-    size_t _buffer_size;
+    std::streamsize _buffer_size;
     bool _error;
     std::string _error_msg;
 

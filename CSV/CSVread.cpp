@@ -28,6 +28,7 @@ Documentation is in CSV.hpp.
 #include "CSV.hpp"
 
 #include <fstream>
+#include <limits>
 #include <list>
 #include <sstream>
 #include <string>
@@ -195,19 +196,41 @@ CSVread::~CSVread()
 }
 
 
-bool CSVread::ResizeBuffer( const size_t bytes )
+/* Resize a buffer.
+
+Both CSVread and CSVwrite use this to resize their respective buffers.
+
+[ret][failure] (false) : The buffer could not be resized and has retained its current size.
+    'error' and 'error_msg' are set.
+[ret][success] (true)
+*/
+bool CSVshared_ResizeBuffer(
+    const streamsize bytes,   // IN
+    char *&_buffer,   // INOUT
+    streamsize &_buffer_size,   // INOUT
+    bool &_error,   // OUT
+    string &_error_msg   // OUT
+)
 {
     if( _buffer && ( _buffer_size == bytes ) )
         return true;
 
-    if( !bytes )
+    if( bytes <= 0 )
     {
         _error = true;
-        _error_msg = "buffer allocation failed. size of bytes is zero.";
+        _error_msg = "buffer allocation failed. size of bytes is <= 0.";
         return false;
     }
 
-    char *temp = (char *)realloc( _buffer, bytes );
+    // CSV classes may cast 'buffer_size' to a size_t at any point so it can't be larger than that.
+    if( bytes > (numeric_limits<size_t>::max)() )
+    {
+        _error = true;
+        _error_msg = "buffer allocation failed. size of bytes is > numeric_limits<size_t>::max.";
+        return false;
+    }
+
+    char *temp = (char *)realloc( _buffer, (size_t)bytes );
     if( !temp )
     {
         _error = true;
@@ -222,6 +245,12 @@ bool CSVread::ResizeBuffer( const size_t bytes )
     _buffer = temp;
     _buffer_size = bytes;
     return true;
+}
+
+
+bool CSVread::ResizeBuffer( const streamsize bytes )
+{
+    return CSVshared_ResizeBuffer( bytes, _buffer, _buffer_size, _error, _error_msg );
 }
 
 
@@ -392,7 +421,7 @@ bool CSVread::Associate( istream *stream, const Flags flags /* = none */ )
     */
     char a[ 3 ];
     char *p = ( _buffer_size >= 3 ) ? _buffer : a;
-    size_t p_size = ( _buffer_size >= 3 ) ? _buffer_size : sizeof a;
+    streamsize p_size = ( _buffer_size >= 3 ) ? _buffer_size : (streamsize)sizeof a;
 
     _input_ptr->read( p, p_size );
     streamsize len = _input_ptr->gcount();

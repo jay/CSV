@@ -77,33 +77,18 @@ CSVwrite::~CSVwrite()
 }
 
 
-bool CSVwrite::ResizeBuffer( const size_t bytes )
+bool CSVshared_ResizeBuffer(
+    const streamsize bytes,   // IN
+    char *&buffer,   // INOUT
+    streamsize &buffer_size,   // INOUT
+    bool &error,   // OUT
+    string &error_msg   // OUT
+); // This function defined and documented above CSVread::ResizeBuffer().
+
+
+bool CSVwrite::ResizeBuffer( const streamsize bytes )
 {
-    if( _buffer && ( _buffer_size == bytes ) )
-        return true;
-
-    if( !bytes )
-    {
-        _error = true;
-        _error_msg = "buffer allocation failed. size of bytes is zero.";
-        return false;
-    }
-
-    char *temp = (char *)realloc( _buffer, bytes );
-    if( !temp )
-    {
-        _error = true;
-
-        ostringstream ss;
-        ss << "buffer allocation failed. size in bytes: " << bytes;
-        _error_msg = ss.str();
-
-        return false;
-    }
-
-    _buffer = temp;
-    _buffer_size = bytes;
-    return true;
+    return CSVshared_ResizeBuffer( bytes, _buffer, _buffer_size, _error, _error_msg );
 }
 
 
@@ -301,7 +286,7 @@ bool CSVwrite::WriteField( const string &field, bool terminate /* = false */ )
     }
 
     char *p = _buffer;
-    const char *const buffer_end = _buffer + _buffer_size;
+    const char *const buffer_end = _buffer + (size_t)_buffer_size;
 
     list<char> prepend, append;
 
