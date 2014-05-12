@@ -96,7 +96,11 @@ public:
 
         /* Process empty records.
 
-        By default empty records (no fields -- no commas) are ignored and not processed as records.
+        An empty record is a record that has nothing or only whitespace before its terminator. By
+        default empty records are ignored and not processed as records.
+
+        A record that consists of just a field separator --eg a comma `,`-- is *not* considered an
+        empty record by this parser, it is parsed as two empty fields.
 
         Regarding its default behavior of ignoring empty records libcsv says:
         "This behavior is meant to accommodate files using only either a linefeed or a carriage
@@ -109,6 +113,10 @@ public:
         terminator in that case. If you are certain all records end in LF or CRLF but never just CR,
         and you want to process empty records then you may pass this flag. An exception to the must
         have LF or CRLF rule is the end record, since it's allowed to not have any terminator.
+
+        All empty records must be terminated to be processed. That means an end record cannot be
+        unterminated AND empty, which in that unique case means the stream ends in trailing
+        whitespace that is ignored regardless.
 
         Keep in mind if using this flag that because each empty record is now considered a record
         it will have its own record number; therefore the record number corresponding to each

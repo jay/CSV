@@ -97,7 +97,7 @@ CSVwrite surrounds all fields in double quotes. For example if you have a record
 
 ### What's an empty record?
 
-A record that has nothing before its terminator. A record that consists of just a field separator --eg a comma `,`-- is *not* considered an empty record by this parser, it is parsed as two empty fields.
+A record that has nothing or only whitespace before its terminator. A record that consists of just a field separator --eg a comma `,`-- is *not* considered an empty record by this parser, it is parsed as two empty fields.
 
 
 ### What are the advanced features of libcsv?
