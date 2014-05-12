@@ -85,17 +85,19 @@ void init()
 }
 
 
-// clears 'records' and 'chars' before generating
+// clears all OUT params before generating
 void generate_list_of_random_records(
     const int max_space,
-    const size_t delimiter_length,
-    const size_t terminator_length,
     const bool count_empty_record_terminators,
     list<vector<string>> &records, // OUT: a list of randomly generated records
-    int &chars // OUT: how many bytes would be needed to write the records as CSV
+    int &char_count, // OUT: how many bytes are in the records
+    int &field_count, // OUT: how many fields are in the records
+    int &escape_count, // OUT: how many escapes will be needed
+    int &delimiter_count, // OUT: how many delimiters will be needed
+    int &terminator_count // OUT: how many terminators will be needed
 )
 {
-    chars = 0;
+    char_count = field_count = escape_count = delimiter_count = terminator_count = 0;
     list<vector<string>>().swap( records );
 
     bool stop = false;
@@ -115,25 +117,36 @@ void generate_list_of_random_records(
 
             for( int k = 0; k < max_length; ++k )
             {
-                if( chars > max_space )
+                if( char_count > max_space )
                 {
                     stop = true;
                     break;
                 }
 
-                records.back().back().push_back( getrand<char>() );
+                char rc = getrand<char>();
+
+                records.back().back().push_back( rc );
+
+                ++char_count;
 
                 // double quotes are escaped by another double quote before they're written
-                chars += ( records.back().back().back() == '"' ) ? 2 : 1;
+                if( rc == '"' )
+                {
+                    ++escape_count;
+                }
             }
 
-            chars += 2; // double quotes surround each field
-            chars += ( j ? delimiter_length : 0 ); // delimiter between fields
+            ++field_count;
+
+            if( j )
+            {
+                ++delimiter_count; // delimiter between fields
+            }
         }
 
         if( records.back().size() || count_empty_record_terminators )
         {
-            chars += terminator_length; // terminator between records
+            ++terminator_count; // terminator between records
         }
     }
 }
@@ -158,23 +171,54 @@ bool generate_and_compare(
     const int max_ramdisk_size = 100; //1048576; // * 100;
 
     list<vector<string>> randlist;
-    int randlist_chars = 0; // how many bytes are needed when the list is converted to csv format
     bool randlist_process_empty = getrand<bool>();
+    int char_count = 0, field_count = 0, escape_count = 0, delimiter_count = 0, terminator_count = 0;
 
     // Get a random list of records to write
     generate_list_of_random_records(
         max_ramdisk_size,
-        csv_write.delimiter.length(),
-        csv_write.terminator.length(),
         randlist_process_empty,
         randlist,
-        randlist_chars
+        char_count,
+        field_count,
+        escape_count,
+        delimiter_count,
+        terminator_count
     );
+
+    bool use_alternate_terminator = getrand<bool>();
+    if( use_alternate_terminator )
+    {
+        csv_write.terminator = "\r\n";
+    }
+
+    int use_terminator_whitespace = getrand<int>( 0, 3 );
+    switch( use_terminator_whitespace )
+    {
+    case 1: csv_write.terminator = " " + csv_write.terminator; break;
+    case 2: csv_write.terminator = csv_write.terminator + " "; break;
+    case 3: csv_write.terminator = " " + csv_write.terminator + " "; break;
+    }
+
+    int use_delimiter_whitespace = getrand<int>( 0, 3 );
+    switch( use_delimiter_whitespace )
+    {
+    case 1: csv_write.delimiter = " ,"; break;
+    case 2: csv_write.delimiter = ", "; break;
+    case 3: csv_write.delimiter = " , "; break;
+    }
+
+    int expected_bytes = char_count // the number of random bytes in all the records
+        + ( field_count * 2 ) // each field is qualified with double quotes.. "abc"
+        + escape_count // each double quote in a field is escaped with a double quote
+        + ( delimiter_count * csv_write.delimiter.length() )
+        + ( terminator_count * csv_write.terminator.length() )
+        ;
 
     bool utf8bom = getrand<bool>();
     if( utf8bom )
     {
-        randlist_chars += 3;
+        expected_bytes += 3;
     }
 
     bool truncate = true;
@@ -196,9 +240,9 @@ bool generate_and_compare(
     DEBUG_IF( ( !file ),
         "While getting file size after write: Failed opening file." );
 
-    DEBUG_IF( ( file.tellg() != (streampos)randlist_chars ),
+    DEBUG_IF( ( file.tellg() != (streampos)expected_bytes ),
         "File size " << FormatWithCommas<streampos>(file.tellg()) << " != "
-            << FormatWithCommas<int>(randlist_chars) << " expected file size." );
+            << FormatWithCommas<int>(expected_bytes) << " expected file size." );
 
     file.close();
 

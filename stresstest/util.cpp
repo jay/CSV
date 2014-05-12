@@ -26,6 +26,7 @@ along with jay::util. If not, see <http://www.gnu.org/licenses/>.
 #define _CRT_SECURE_NO_WARNINGS
 #include "util.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -140,4 +141,10 @@ bool SaveErrorState( const string &errmsg )
     }
 
     return func_retval;
+}
+
+
+void RemoveTrailingSpaces( string &s )
+{
+    s.erase( find_if( s.rbegin(), s.rend(), bind1st( not_equal_to<char>(), ' ' ) ).base(), s.end() );
 }

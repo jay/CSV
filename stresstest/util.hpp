@@ -34,6 +34,7 @@ extern std::mt19937 mersenne;
 
 bool is_mt19937_state_bug_present();
 bool SaveErrorState( const std::string &errmsg );
+void RemoveTrailingSpaces( std::string &s );
 
 
 // http://stackoverflow.com/questions/7276826/c-format-number-with-commas/7276879#7276879

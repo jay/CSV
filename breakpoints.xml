@@ -415,9 +415,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\stresstest\stresstest.cpp</FileName>
-        <startLine>105</startLine>
+        <startLine>107</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>105</EndLine>
+        <EndLine>107</EndLine>
         <EndColumn>64</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -432,11 +432,13 @@
       </TextPosition>
       <NamedLocationText>generate_list_of_random_records(
     const int max_space,
-    const size_t delimiter_length,
-    const size_t terminator_length,
     const bool count_empty_record_terminators,
     list&lt;vector&lt;string&gt;&gt; &amp;records, // OUT: a list of randomly generated records
-    int &amp;chars // OUT: how many bytes would be needed to write the records as CSV
+    int &amp;char_count, // OUT: how many bytes are in the records
+    int &amp;field_count, // OUT: how many fields are in the records
+    int &amp;escape_count, // OUT: how many escapes will be needed
+    int &amp;delimiter_count, // OUT: how many delimiters will be needed
+    int &amp;terminator_count // OUT: how many terminators will be needed
 )</NamedLocationText>
       <NamedLocationLine>9</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
@@ -453,7 +455,7 @@
         <Language>00000000-0000-0000-0000-000000000000</Language>
       </AddressLocation>
       <DataCount>4</DataCount>
-      <TracepointText>pending record #{i} , chars: {chars}</TracepointText>
+      <TracepointText>pending record #{i} ; char_count: {char_count}, field_count: {field_count}, escape_count: {escape_count}, delimiter_count: {delimiter_count}, terminator_count: {terminator_count}</TracepointText>
       <IsTracepointActive>1</IsTracepointActive>
       <IsBreakWhenHit>0</IsBreakWhenHit>
       <IsRunMacroWhenHit>0</IsRunMacroWhenHit>
@@ -473,9 +475,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\stresstest\stresstest.cpp</FileName>
-        <startLine>111</startLine>
+        <startLine>113</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>111</EndLine>
+        <EndLine>113</EndLine>
         <EndColumn>66</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -490,11 +492,13 @@
       </TextPosition>
       <NamedLocationText>generate_list_of_random_records(
     const int max_space,
-    const size_t delimiter_length,
-    const size_t terminator_length,
     const bool count_empty_record_terminators,
     list&lt;vector&lt;string&gt;&gt; &amp;records, // OUT: a list of randomly generated records
-    int &amp;chars // OUT: how many bytes would be needed to write the records as CSV
+    int &amp;char_count, // OUT: how many bytes are in the records
+    int &amp;field_count, // OUT: how many fields are in the records
+    int &amp;escape_count, // OUT: how many escapes will be needed
+    int &amp;delimiter_count, // OUT: how many delimiters will be needed
+    int &amp;terminator_count // OUT: how many terminators will be needed
 )</NamedLocationText>
       <NamedLocationLine>15</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
@@ -511,7 +515,7 @@
         <Language>00000000-0000-0000-0000-000000000000</Language>
       </AddressLocation>
       <DataCount>4</DataCount>
-      <TracepointText>pending record #{i} , pending field #{j} , chars: {chars}</TracepointText>
+      <TracepointText>pending record #{i} , pending field #{j} ; char_count: {char_count}, field_count: {field_count}, escape_count: {escape_count}, delimiter_count: {delimiter_count}, terminator_count: {terminator_count}</TracepointText>
       <IsTracepointActive>1</IsTracepointActive>
       <IsBreakWhenHit>0</IsBreakWhenHit>
       <IsRunMacroWhenHit>0</IsRunMacroWhenHit>
@@ -531,9 +535,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\stresstest\stresstest.cpp</FileName>
-        <startLine>138</startLine>
+        <startLine>151</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>138</EndLine>
+        <EndLine>151</EndLine>
         <EndColumn>1</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -548,13 +552,15 @@
       </TextPosition>
       <NamedLocationText>generate_list_of_random_records(
     const int max_space,
-    const size_t delimiter_length,
-    const size_t terminator_length,
     const bool count_empty_record_terminators,
     list&lt;vector&lt;string&gt;&gt; &amp;records, // OUT: a list of randomly generated records
-    int &amp;chars // OUT: how many bytes would be needed to write the records as CSV
+    int &amp;char_count, // OUT: how many bytes are in the records
+    int &amp;field_count, // OUT: how many fields are in the records
+    int &amp;escape_count, // OUT: how many escapes will be needed
+    int &amp;delimiter_count, // OUT: how many delimiters will be needed
+    int &amp;terminator_count // OUT: how many terminators will be needed
 )</NamedLocationText>
-      <NamedLocationLine>42</NamedLocationLine>
+      <NamedLocationLine>53</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>
       <HitCountTarget>1</HitCountTarget>
@@ -569,7 +575,7 @@
         <Language>00000000-0000-0000-0000-000000000000</Language>
       </AddressLocation>
       <DataCount>4</DataCount>
-      <TracepointText>out of loop. chars: {chars}</TracepointText>
+      <TracepointText>out of loop. char_count: {char_count}, field_count: {field_count}, escape_count: {escape_count}, delimiter_count: {delimiter_count}, terminator_count: {terminator_count}</TracepointText>
       <IsTracepointActive>1</IsTracepointActive>
       <IsBreakWhenHit>0</IsBreakWhenHit>
       <IsRunMacroWhenHit>0</IsRunMacroWhenHit>
@@ -589,9 +595,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\stresstest\stresstest.cpp</FileName>
-        <startLine>333</startLine>
+        <startLine>377</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>333</EndLine>
+        <EndLine>377</EndLine>
         <EndColumn>78</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
