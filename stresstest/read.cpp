@@ -72,6 +72,12 @@ bool read_records(
         flags |= jay::util::CSVread::skip_utf8_bom_check;
     }
 
+    bool strict_mode = getrand<bool>();
+    if( strict_mode )
+    {
+        flags |= jay::util::CSVread::strict_mode;
+    }
+
     bool use_flags = ( flags != jay::util::CSVread::none ) || getrand<bool>();
 
     if( use_association )
