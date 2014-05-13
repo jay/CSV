@@ -14,7 +14,7 @@ I couldn't find a good C++ library to handle multiline and arbitrary binary data
 How do I...
 -----------
 
-The documentation is in [CSV/CSV.hpp](https://github.com/jay/CSV/blob/develop/CSV/CSV.hpp). The class source code is in the [CSV folder](https://github.com/jay/CSV/tree/develop/CSV) and at a minimum you'll need one of the GPLv3 license files and all h, c, hpp, and cpp files from that folder and a compiler that supports C89 and C++03. Include CSV.hpp in your source file. If you need an advanced feature only available in libcsv you'll have to include csv.h as well. If you have Visual Studio 2010+ you can add the project file CSV/CSV.vcxproj to your solution. Also there are two Visual Studio 2010 solutions included:
+The documentation is in [CSV/CSV.hpp](https://github.com/jay/CSV/blob/develop/CSV/CSV.hpp). The class source code is in the [CSV folder](https://github.com/jay/CSV/tree/develop/CSV) and at a minimum you'll need one of the GPLv3 license files and all h, c, hpp and cpp files from that folder and a compiler that supports C89, C++03 and stdint.h (for uintmax_t). Include CSV.hpp in your source file. If you need an advanced feature only available in libcsv you'll have to include csv.h as well. If you have Visual Studio 2010+ you can add the project file CSV/CSV.vcxproj to your solution. Also there are two Visual Studio 2010 solutions included:
 
 
 ### CSV.sln

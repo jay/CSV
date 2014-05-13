@@ -62,6 +62,8 @@ For more examples refer to ..\Example\Example.sln
 #ifndef JAY_UTIL_CSV_HPP_
 #define JAY_UTIL_CSV_HPP_
 
+#include <stdint.h>
+
 #include <fstream>
 #include <list>
 #include <string>
@@ -275,7 +277,7 @@ public:
     [ret][success] (true) : 'record_num' and 'fields' are set;
         'eof', 'end_record_num' and 'end_record_not_terminated' may also be set.
     */
-    bool ReadRecord( const size_t requested_record_num = 0 );
+    bool ReadRecord( const uintmax_t requested_record_num = 0 );
 
 
     /* Change the size of the buffer, in bytes.
@@ -317,7 +319,7 @@ public:
 
     // The record number of the current record.
     // The first CSV record is record number 1.
-    const size_t &record_num; // = _record_num
+    const uintmax_t &record_num; // = _record_num
 
 
     /* The record number of the end record.
@@ -348,7 +350,7 @@ public:
     since ReadRecord() does not set 'fields' or 'record_num' on failure they would still represent
     the end record in that case.
     */
-    const size_t &end_record_num; // = _end_record_num
+    const uintmax_t &end_record_num; // = _end_record_num
 
 
     /* The end record was not terminated.
@@ -426,8 +428,8 @@ private:
     bool _error;
     std::string _error_msg;
     bool _has_utf8_bom;
-    size_t _record_num;
-    size_t _end_record_num;
+    uintmax_t _record_num;
+    uintmax_t _end_record_num;
     bool _end_record_not_terminated;
     std::vector<std::string> _fields;
 

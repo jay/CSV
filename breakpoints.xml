@@ -12,9 +12,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>429</startLine>
+        <startLine>431</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>429</EndLine>
+        <EndLine>431</EndLine>
         <EndColumn>17</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -63,9 +63,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>542</startLine>
+        <startLine>544</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>542</EndLine>
+        <EndLine>544</EndLine>
         <EndColumn>1</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -113,9 +113,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>668</startLine>
+        <startLine>670</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>668</EndLine>
+        <EndLine>670</EndLine>
         <EndColumn>21</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -128,7 +128,7 @@
           <Bytes />
         </Checksum>
       </TextPosition>
-      <NamedLocationText>ReadRecord( const size_t requested_record_num /* = 0 */ )</NamedLocationText>
+      <NamedLocationText>ReadRecord( const uintmax_t requested_record_num /* = 0 */ )</NamedLocationText>
       <NamedLocationLine>126</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>

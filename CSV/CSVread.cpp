@@ -27,6 +27,8 @@ Documentation is in CSV.hpp.
 
 #include "CSV.hpp"
 
+#include <stdint.h>
+
 #include <fstream>
 #include <limits>
 #include <list>
@@ -54,8 +56,8 @@ struct cb_stuff
         bool &_error_pending,
         std::string &_error_msg,
         bool &_end_record_not_terminated,
-        size_t &pending,
-        size_t &requested
+        uintmax_t &pending,
+        uintmax_t &requested
     ) :
         _cache( _cache ), _flags( _flags ), _error_pending( _error_pending ), _error_msg( _error_msg ),
             _end_record_not_terminated( _end_record_not_terminated ),
@@ -79,10 +81,10 @@ struct cb_stuff
     bool &_end_record_not_terminated;
 
     // A reference to the record number of the pending record.
-    size_t &pending;
+    uintmax_t &pending;
 
     // A reference to the record number of the requested record.
-    const size_t &requested;
+    const uintmax_t &requested;
 
 private:
     cb_stuff( const cb_stuff & );
@@ -409,8 +411,8 @@ bool CSVread::Associate( istream *stream, const Flags flags /* = none */ )
             | ( ( _flags & strict_mode ) ? ( CSV_STRICT | CSV_STRICT_FINI ) : 0 )
     );
 
-    size_t pending = 1;
-    size_t requested = 1;
+    uintmax_t pending = 1;
+    uintmax_t requested = 1;
 
     bool parsed_end_record = false;
 
@@ -539,7 +541,7 @@ bool CSVread::Open( string filename, const Flags flags /* = none */ )
 
 
 
-bool CSVread::ReadRecord( const size_t requested_record_num /* = 0 */ )
+bool CSVread::ReadRecord( const uintmax_t requested_record_num /* = 0 */ )
 {
     if( _error )
         return false;
@@ -559,8 +561,8 @@ bool CSVread::ReadRecord( const size_t requested_record_num /* = 0 */ )
     }
 
     _eof = _input_ptr->eof();
-    size_t pending = _record_num + _cache.size();
-    size_t requested = requested_record_num;
+    uintmax_t pending = _record_num + _cache.size();
+    uintmax_t requested = requested_record_num;
 
     if( !requested )
     {
@@ -577,7 +579,7 @@ bool CSVread::ReadRecord( const size_t requested_record_num /* = 0 */ )
     {
         if( requested < pending ) // the requested record is already in the cache
         {
-            for( size_t i = requested - _record_num - 1; i; --i )
+            for( uintmax_t i = requested - _record_num - 1; i; --i )
             {
                 _cache.pop_front();
             }
