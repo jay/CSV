@@ -193,6 +193,7 @@ public:
 
     Resets most variables, calls ResetParser() and ResetCache().
 
+    The delimiter is not reset. To reset the delimiter call SetDelimiter( ',' ).
     The size of the buffer is not reset. To reset the size of the buffer call ResizeBuffer().
 
     If the file/istream is open/associated it's clear()'d, then its position is reset. If the
@@ -251,6 +252,25 @@ public:
     */
     bool Open( std::string filename, Flags flags = none );
     bool Associate( std::istream *stream, Flags flags = none );
+
+
+    /* CSVread::GetDelimiter(), CSVread::SetDelimiter()
+    - Get or set the delimiter character to be used when parsing the stream.
+
+    The default delimiter is a comma and does not need to be set.
+
+    The delimiter is also known as the field separator character. Typically SetDelimiter() would be
+    used to set the delimiter to a semi-colon instead of the default comma.
+
+    The delimiter character must not conflict with any whitespace, terminator or qualifier (default:
+    double quote) character. No error checking is done because the advanced features of libcsv allow
+    all of those to be changed and therefore in rare circumstances one of those characters could be
+    technically acceptable as the delimiter.
+
+    The delimiter is persistent and will survive resets. It doesn't need to be set on each open.
+    */
+    unsigned char GetDelimiter();
+    void SetDelimiter( unsigned char delim );
 
 
     /* CSVread::ReadRecord()
@@ -380,7 +400,10 @@ public:
     To access this object you must include libcsv's "csv.h" in your code.
 
     Do not call these functions on parse_obj:
-    csv_init(), csv_set_opts(), csv_parse(), csv_fini(), csv_free().
+    csv_init(), csv_set_opts(), csv_parse(), csv_fini(), csv_free(), csv_get_delim(),
+    csv_set_delim().
+
+    To get/set the delimiter call Get/SetDelimiter() instead.
 
     If 'error' parse_obj is not guaranteed != NULL or a good state; don't call any libcsv function.
     */
@@ -421,6 +444,9 @@ private:
 
     // The buffer used to hold data read from the stream.
     char *_buffer;
+
+    // The field separator character.
+    unsigned char _delimiter; // = ,
 
     // For a description of any of these refer to their public const references.
     std::streamsize _buffer_size;
@@ -644,12 +670,16 @@ public:
     // If 'error' you can read this string before calling Close() or Dissociate().
     const std::string &error_msg; // = _error_msg
 
-    // Set this to change the delimiter. It should be a single character.
+    // Set this to change the delimiter.
+    // The delimiter should be a single character but prepended/appended whitespace is ok.
+    // The delimiter is persistent and will survive resets. It doesn't need to be set on each open.
     std::string delimiter; // = ,
 
-    // Set this to change the terminator. It should be a single character or \r\n.
+    // Set this to change the terminator.
+    // The terminator should be a single character or \r\n but prepended/appended whitespace is ok.
     // \n could be automatically translated and written as \r\n in text mode, depending on your OS.
     // It's not recommended to set the terminator as \r\n explicitly.
+    // The terminator is persistent and will survive resets. It doesn't need to be set on each open.
     std::string terminator; // = \n
 
 private:
@@ -680,7 +710,7 @@ private:
     // Initialization to be called from the constructor only.
     bool Init();
 
-    // Resets most variables. Does not reset the buffer size.
+    // Resets most variables. Does not reset the buffer size, delimiter or terminator.
     bool Reset();
 };
 

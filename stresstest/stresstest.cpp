@@ -187,10 +187,7 @@ bool generate_and_compare(
     );
 
     bool use_alternate_terminator = getrand<bool>();
-    if( use_alternate_terminator )
-    {
-        csv_write.terminator = "\r\n";
-    }
+    csv_write.terminator = use_alternate_terminator ? "\r\n" : "\n";
 
     int use_terminator_whitespace = getrand<int>( 0, 3 );
     switch( use_terminator_whitespace )
@@ -200,12 +197,23 @@ bool generate_and_compare(
     case 3: csv_write.terminator = " " + csv_write.terminator + " "; break;
     }
 
+    bool use_alternate_delimiter = getrand<bool>();
+    char delim = use_alternate_delimiter ? ';' : ',';
+
+    // The delimiter is persistent so if it is already what's expected it shouldn't need to be set.
+    if( csv_read.GetDelimiter() != delim )
+    {
+        csv_read.SetDelimiter( delim );
+    }
+
+    csv_write.delimiter = delim;
+
     int use_delimiter_whitespace = getrand<int>( 0, 3 );
     switch( use_delimiter_whitespace )
     {
-    case 1: csv_write.delimiter = " ,"; break;
-    case 2: csv_write.delimiter = ", "; break;
-    case 3: csv_write.delimiter = " , "; break;
+    case 1: csv_write.delimiter = " " + csv_write.delimiter; break;
+    case 2: csv_write.delimiter = csv_write.delimiter + " "; break;
+    case 3: csv_write.delimiter = " " + csv_write.delimiter + " "; break;
     }
 
     int expected_bytes = char_count // the number of random bytes in all the records
@@ -360,13 +368,25 @@ int main( int argc, char *argv[] )
     mersenne_state_iteration << mersenne;
     mersenne_state_iteration_prev << mersenne;
 
+
     jay::util::CSVread csv_read;
     DEBUG_IF( ( csv_read.error ),
         "Problem creating CSVread: " << csv_read.error_msg );
 
+    DEBUG_IF( ( csv_read.GetDelimiter() != ',' ),
+        "Unexpected csv_read default delimiter: \"" << csv_read.GetDelimiter() << "\"" );
+
+
     jay::util::CSVwrite csv_write;
     DEBUG_IF( ( csv_write.error ),
         "Problem creating CSVwrite: " << csv_write.error_msg );
+
+    DEBUG_IF( ( csv_write.delimiter != "," ),
+        "Unexpected csv_write default delimiter: \"" << csv_write.delimiter << "\"" );
+
+    DEBUG_IF( ( csv_write.terminator != "\n" ),
+        "Unexpected csv_write default terminator: \"" << csv_write.terminator << "\"" );
+
 
     for( iteration = 1; iteration < SIZE_MAX; ++iteration )
     {

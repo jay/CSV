@@ -285,6 +285,7 @@ bool CSVread::ResetParser()
         return false;
     }
 
+    SetDelimiter( _delimiter );
     return true;
 }
 
@@ -363,6 +364,8 @@ bool CSVread::Init()
     _buffer_size = 0;
     parse_obj = NULL;
     _input_ptr =  NULL;
+
+    _delimiter = (unsigned char)CSV_COMMA;
 
     return Reset();
 }
@@ -536,6 +539,25 @@ bool CSVread::Open( string filename, const Flags flags /* = none */ )
     }
 
     return Associate( &_file, flags );
+}
+
+
+
+
+unsigned char CSVread::GetDelimiter()
+{
+    return _delimiter;
+}
+
+
+void CSVread::SetDelimiter( unsigned char delim )
+{
+    _delimiter = delim;
+
+    if( parse_obj )
+    {
+        csv_set_delim( parse_obj, _delimiter );
+    }
 }
 
 

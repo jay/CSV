@@ -108,9 +108,6 @@ bool CSVwrite::Reset()
             return false;
     }
 
-    delimiter = ",";
-    terminator = "\n";
-
     _flags = CSVwrite::none;
     _error = false;
     _error_msg = "";
@@ -140,6 +137,9 @@ bool CSVwrite::Init()
     _buffer = NULL;
     _buffer_size = 0;
     _output_ptr =  NULL;
+
+    delimiter = ",";
+    terminator = "\n";
 
     return Reset();
 }

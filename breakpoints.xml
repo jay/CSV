@@ -12,9 +12,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>431</startLine>
+        <startLine>434</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>431</EndLine>
+        <EndLine>434</EndLine>
         <EndColumn>17</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -63,9 +63,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>544</startLine>
+        <startLine>566</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>544</EndLine>
+        <EndLine>566</EndLine>
         <EndColumn>1</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -113,9 +113,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\CSV\CSVread.cpp</FileName>
-        <startLine>670</startLine>
+        <startLine>692</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>670</EndLine>
+        <EndLine>692</EndLine>
         <EndColumn>21</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -595,9 +595,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\stresstest\stresstest.cpp</FileName>
-        <startLine>377</startLine>
+        <startLine>397</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>377</EndLine>
+        <EndLine>397</EndLine>
         <EndColumn>78</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -611,7 +611,7 @@
         </Checksum>
       </TextPosition>
       <NamedLocationText>main( int argc, char *argv[] )</NamedLocationText>
-      <NamedLocationLine>43</NamedLocationLine>
+      <NamedLocationLine>55</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>
       <HitCountTarget>1</HitCountTarget>
