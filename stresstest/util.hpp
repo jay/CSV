@@ -99,19 +99,19 @@ inline bool getrand<bool>()
 #define DEBUG_IF(expr, msg)   \
     if( expr ) \
     { \
-        std::string filename(__FILE__); \
-        size_t pos = filename.find_last_of( "\\/" ); \
-        if( pos != std::string::npos ) \
+        std::string filename_d_(__FILE__); \
+        size_t pos_d_ = filename_d_.find_last_of( "\\/" ); \
+        if( pos_d_ != std::string::npos ) \
         { \
-            filename.erase( 0, pos + 1 ); \
+            filename_d_.erase( 0, pos_d_ + 1 ); \
         } \
-        std::stringstream ss; \
-        ss << "ERROR: Expression is true: " << #expr << std::endl \
-            << filename << ":" << __LINE__ << " , " << __FUNCTION__ << "(): " << msg; \
-        std::cerr << std::endl << "\a\a" << ss.str() << std::endl; \
-        SaveErrorState( ss.str() ); \
+        std::stringstream ss_d_; \
+        ss_d_ << "ERROR: Expression is true: " << #expr << std::endl \
+            << filename_d_ << ":" << __LINE__ << " , " << __FUNCTION__ << "(): " << msg; \
+        std::cerr << std::endl << "\a\a" << ss_d_.str() << std::endl; \
+        SaveErrorState( ss_d_.str() ); \
         __debugbreak(); \
-		return false; \
-	}
+        return false; \
+    }
 
 #endif // STRESSTEST_UTIL_
