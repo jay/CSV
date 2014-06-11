@@ -440,7 +440,7 @@
     int &amp;delimiter_count, // OUT: how many delimiters will be needed
     int &amp;terminator_count // OUT: how many terminators will be needed
 )</NamedLocationText>
-      <NamedLocationLine>9</NamedLocationLine>
+      <NamedLocationLine>7</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>
       <HitCountTarget>1</HitCountTarget>
@@ -500,7 +500,7 @@
     int &amp;delimiter_count, // OUT: how many delimiters will be needed
     int &amp;terminator_count // OUT: how many terminators will be needed
 )</NamedLocationText>
-      <NamedLocationLine>15</NamedLocationLine>
+      <NamedLocationLine>13</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>
       <HitCountTarget>1</HitCountTarget>
@@ -560,7 +560,7 @@
     int &amp;delimiter_count, // OUT: how many delimiters will be needed
     int &amp;terminator_count // OUT: how many terminators will be needed
 )</NamedLocationText>
-      <NamedLocationLine>53</NamedLocationLine>
+      <NamedLocationLine>51</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>
       <HitCountTarget>1</HitCountTarget>
@@ -595,9 +595,9 @@
       <TextPosition>
         <Version>4</Version>
         <FileName>.\stresstest\stresstest.cpp</FileName>
-        <startLine>397</startLine>
+        <startLine>403</startLine>
         <StartColumn>0</StartColumn>
-        <EndLine>397</EndLine>
+        <EndLine>403</EndLine>
         <EndColumn>45</EndColumn>
         <MarkerId>45</MarkerId>
         <IsLineBased>1</IsLineBased>
@@ -611,7 +611,7 @@
         </Checksum>
       </TextPosition>
       <NamedLocationText>main( int argc, char *argv[] )</NamedLocationText>
-      <NamedLocationLine>55</NamedLocationLine>
+      <NamedLocationLine>70</NamedLocationLine>
       <NamedLocationColumn>0</NamedLocationColumn>
       <HitCountType>NoHitCount</HitCountType>
       <HitCountTarget>1</HitCountTarget>

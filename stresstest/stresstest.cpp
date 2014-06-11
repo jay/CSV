@@ -156,22 +156,11 @@ void generate_list_of_random_records(
 
 bool generate_and_compare(
     jay::util::CSVread &csv_read,
-    jay::util::CSVwrite &csv_write
+    jay::util::CSVwrite &csv_write,
+    const char *const filename,
+    const int max_ramdisk_size // the max bytes to use on the ramdisk
 )
 {
-    const char *const filename = "T:\\temp.csv";
-
-    // - create ramdisk
-    // imdisk -a -s 512M -m T: -p "/fs:ntfs /q /y"
-    //
-    // - delete ramdisk
-    // imdisk -d -m T:
-    // or imdisk -D -m T: to force a removal.
-
-    // the max bytes to use on the ramdisk, might be a few bytes over
-    // also i make buffer up to twice this size elsewhere
-    const int max_ramdisk_size = 100; //1048576; // * 100;
-
     list<vector<string>> randlist;
     bool randlist_process_empty = getrand<bool>();
     int char_count = 0, field_count = 0, escape_count = 0, delimiter_count = 0, terminator_count = 0;
@@ -371,6 +360,23 @@ int main( int argc, char *argv[] )
     mersenne_state_iteration_prev << mersenne;
 
 
+    // - create ramdisk
+    // imdisk -a -s 10M -m T: -p "/fs:ntfs /q /y"
+    //
+    // - delete ramdisk
+    // imdisk -d -m T:
+    // or imdisk -D -m T: to force a removal.
+    const char *const filename = "T:\\temp_e789123f.csv";
+
+    // the max bytes to use on the ramdisk, might be a few bytes over
+    // also i make buffer up to twice this size elsewhere
+    const int max_ramdisk_size = 100; //1048576; // * 100;
+
+    cout << "WARNING: The stresstest will read and write repeatedly to " << filename << endl
+        << "It's highly preferable the drive be a RAM drive with >= "
+        << ( max_ramdisk_size / 1048576 ) + 10 << " MB of free space." << endl << endl;
+
+
     jay::util::CSVread csv_read;
     DEBUG_IF( ( csv_read.error ),
         "Problem creating CSVread: " << csv_read.error_msg );
@@ -399,7 +405,7 @@ int main( int argc, char *argv[] )
 
         cout << "Iteration " << FormatWithCommas<size_t>( iteration ) << endl;
 
-        DEBUG_IF( ( !generate_and_compare( csv_read, csv_write ) ),
+        DEBUG_IF( ( !generate_and_compare( csv_read, csv_write, filename, max_ramdisk_size ) ),
             "generate_and_compare() failed." );
 
         DEBUG_IF( !csv_write.Close(),
