@@ -27,6 +27,7 @@ along with jay::util. If not, see <http://www.gnu.org/licenses/>.
 #include "util.hpp"
 
 #include <algorithm>
+#include <functional>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -58,15 +59,59 @@ bool is_mt19937_state_bug_present()
     return ( ( engine1 != engine2 ) || ( engine1() != engine2() ) );
 }
 
-/* random_device probably won't work in mingw since apparently there's no working generator.
-It would have to be replaced by something like rand_s and/or seed sequence. re random_device:
+
+/* random_device notes
+
+It isn't always available and may not work even when it is. According to cplusplus it should throw
+an exception if it's not available to produce random numbers but from what I've seen that may not
+happen in some versions of gcc. And it probably won't work in MinGW since apparently there's no
+working generator. It would have to be replaced by something like rand_s and/or seed sequence.
+
+random_device notes from cplusplus:
+
+"Notice that random devices may not always be available to produce random numbers (and in some
+systems, they may even never be available). This is signaled by throwing an exception derived from
+the standard exception on construction or when a number is requested with operator()."
 
 "Unless the program really requires a stochastic process to generate random numbers, a portable
 program is encouraged to use an alternate pseudo-random number generator engine instead, or at least
 provide a recovery method for such exceptions."
 */
-static random_device seedgen;
-mt19937 mersenne( seedgen );
+
+#ifdef __GNUC__
+#error "GCC random_device support is broken. Remove this check if you have a working random_device."
+#endif
+
+mt19937 mersenne;
+
+static void init_mersenne()
+{
+    if( is_mt19937_state_bug_present() )
+    {
+        cerr << "FATAL: init_mersenne(): "
+            << "There is a bug in your compiler's implementation of the mersenne twister." << endl;
+        exit( 1 );
+    }
+
+    //
+    // Visual Studio 2013 compatible initialization of mersenne twister.
+    // http://connect.microsoft.com/VisualStudio/feedback/details/875492
+    //
+    vector<uint32_t> v( mt19937::state_size );
+    random_device rd;
+
+    generate( v.begin(), v.end(), ref( rd ) );
+    seed_seq seed( v.begin(), v.end() );
+
+    mersenne.seed( seed );
+}
+
+
+// must be called by main init()
+void util_init()
+{
+    init_mersenne();
+}
 
 
 string DateTimeForFilename()

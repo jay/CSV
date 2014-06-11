@@ -28,11 +28,13 @@ along with jay::util. If not, see <http://www.gnu.org/licenses/>.
 #include <random>
 #include <sstream>
 #include <string>
+#include <type_traits>
 
 
 extern std::mt19937 mersenne;
 
 bool is_mt19937_state_bug_present();
+void util_init();
 bool SaveErrorState( const std::string &errmsg );
 void RemoveTrailingSpaces( std::string &s );
 
@@ -58,39 +60,83 @@ uniform_int_distribution I'd have to save that state as well for any reproducito
 // http://connect.microsoft.com/VisualStudio/feedback/details/712984
 // Here I convert to unsigned, get the random number, then convert back to signed.
 template<typename T>
-typename std::enable_if<std::is_integral<T>::value && std::is_signed<T>::value,
-    T>::type getrand(T min, T max)
+typename std::enable_if<
+    std::is_same<T, short>::value
+        || std::is_same<T, int>::value
+        || std::is_same<T, long>::value
+        || std::is_same<T, long long>::value,
+    T>::type getrand( T min, T max )
 {
     typedef typename std::make_unsigned<T>::type utype;
-    const utype adjust = ( utype(-1) >> 1 ) + 1;
-    const utype min_u = ( utype(min) < adjust ) ? ( utype(min) + adjust ) : ( utype(min) - adjust );
-    const utype max_u = ( utype(max) < adjust ) ? ( utype(max) + adjust ) : ( utype(max) - adjust );
+    const utype adjust = ( utype( -1 ) >> 1 ) + 1;
+    const utype min_u = ( utype( min ) < adjust ) ? ( utype( min ) + adjust ) : ( utype( min ) - adjust );
+    const utype max_u = ( utype( max ) < adjust ) ? ( utype( max ) + adjust ) : ( utype( max ) - adjust );
     utype rand_u = std::uniform_int_distribution<utype>( min_u, max_u )( mersenne );
-    rand_u = ( utype(rand_u) < adjust ) ? ( utype(rand_u) + adjust ) : ( utype(rand_u) - adjust );
+    rand_u = ( utype( rand_u ) < adjust ) ? ( utype( rand_u ) + adjust ) : ( utype( rand_u ) - adjust );
     return (
-        ( rand_u > utype((std::numeric_limits<T>::max)()) )
-        ? -(T)( utype(-1) - rand_u ) - 1
+        ( rand_u > utype( (std::numeric_limits<T>::max)() ) )
+        ? -(T)( utype( -1 ) - rand_u ) - 1
         : rand_u
     );
 }
 
 template<typename T>
-typename std::enable_if<std::is_integral<T>::value && !std::is_signed<T>::value,
-    T>::type getrand(T min, T max)
+typename std::enable_if<
+    std::is_same<T, unsigned short>::value
+        || std::is_same<T, unsigned int>::value
+        || std::is_same<T, unsigned long>::value
+        || std::is_same<T, unsigned long long>::value,
+    T>::type getrand( T min, T max )
 {
     T rand_u = std::uniform_int_distribution<T>( min, max )( mersenne );
     return rand_u;
 }
 
 template<typename T>
-typename std::enable_if<std::is_integral<T>::value,
+typename std::enable_if<
+    std::is_same<T, short>::value
+        || std::is_same<T, int>::value
+        || std::is_same<T, long>::value
+        || std::is_same<T, long long>::value
+        || std::is_same<T, unsigned short>::value
+        || std::is_same<T, unsigned int>::value
+        || std::is_same<T, unsigned long>::value
+        || std::is_same<T, unsigned long long>::value,
     T>::type getrand()
 {
     return getrand( (std::numeric_limits<T>::min)(), (std::numeric_limits<T>::max)() );
 }
 
-template<>
-inline bool getrand<bool>()
+template<typename T>
+typename std::enable_if<
+    std::is_same<T, char>::value
+        || std::is_same<T, signed char>::value
+        || std::is_same<T, unsigned char>::value,
+    T>::type getrand( T min, T max )
+{
+    return static_cast<T>(
+        getrand<std::conditional<std::is_signed<T>::value, signed, unsigned>::type>( min, max )
+    );
+}
+
+template<typename T>
+typename std::enable_if<
+    std::is_same<T, char>::value
+        || std::is_same<T, signed char>::value
+        || std::is_same<T, unsigned char>::value,
+    T>::type getrand()
+{
+    return static_cast<T>(
+        getrand<std::conditional<std::is_signed<T>::value, signed, unsigned>::type>(
+            (std::numeric_limits<T>::min)(), (std::numeric_limits<T>::max)()
+        )
+    );
+}
+
+template<typename T>
+typename std::enable_if<
+    std::is_same<T, bool>::value,
+    T>::type getrand()
 {
     return ( getrand( 0, 1 ) ? true : false );
 }

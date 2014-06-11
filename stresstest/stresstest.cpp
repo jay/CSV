@@ -82,6 +82,8 @@ void init()
             atexit( pause );
         }
     }
+
+    util_init();
 }
 
 
@@ -391,7 +393,7 @@ int main( int argc, char *argv[] )
     for( iteration = 1; iteration < SIZE_MAX; ++iteration )
     {
         mersenne_state_iteration_prev.swap( mersenne_state_iteration );
-        mersenne_state_iteration.swap( std::stringstream() );
+        stringstream().swap( mersenne_state_iteration );
         mersenne_state_iteration.setf( ios::left );
         mersenne_state_iteration << mersenne;
 
