@@ -1,0 +1,30 @@
+The class source code is in the CSV folder and at a minimum you'll need one of the GPLv3 license
+files and all h, c, hpp and cpp files from that folder and a compiler that supports C89, C++03 and
+stdint.h (for uintmax_t). Include CSV.hpp in your source file. If you need an advanced feature only
+available in libcsv you'll have to include csv.h as well.
+
+If you have Visual Studio 2010+ you can add the project file CSV/CSV.vcxproj to your solution and
+reference it in your application project (right-click application project > References > Add New) or
+do not include the CSV project file in your solution and instead build the static library CSV.lib
+using one of the solutions below and then manually add the lib to your project (Linker > Input >
+Additional Dependencies).
+
+Two solutions are included:
+
+CSV.sln
+-
+This solution will build the CSV library and run the stress test.
+
+Example/Example.sln
+-
+This solution will build the CSV library and run the example.
+
+All Visual Studio project files reference the global property file Global.props which is in the same
+directory as this file. The global property file is used to help maintain compatibility with
+versions of Visual Studio > 2010 so that my projects which were created in VS2010 can be opened and
+built in any later version using the appropriate toolset (eg Visual Studio 2012 should compile
+project using its 2012 compiler) and without requiring the project to be upgraded. Everything should
+just work without any intervention.
+
+If you are building using Visual Studio 2013+ you may see a warning that ToolsVersion 4.0 is unknown
+or missing. The warning is benign. http://msdn.microsoft.com/en-us/library/bb383796.aspx
