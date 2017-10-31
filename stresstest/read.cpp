@@ -195,7 +195,7 @@ bool read_records(
         DEBUG_IF( ( b ),
             "Random access: More records than expected." );
 
-        DEBUG_IF( ( !csv_read.eof || ( expected_records_count != csv_read.end_record_num ) ),
+        DEBUG_IF( !csv_read.eof || ( expected_records_count != csv_read.end_record_num ),
             "Random access: End record unknown." );
 
         records.assign( tmprec.begin(), tmprec.end() );
